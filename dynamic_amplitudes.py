@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# File: dynamic_amplitude.py
+# File: dynamic_amplitudes.py
 # Author: [Your Name]
 # Date: [Current Date]
 # Description: [Short description of the script's purpose]
