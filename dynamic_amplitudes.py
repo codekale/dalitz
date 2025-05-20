@@ -28,7 +28,7 @@ def dynamic_width_for_breit_wigner(m: float, m_1:float, m_2:float, s:int, m_0:fl
     # Calculate the dynamic width using the Breit-Wigner formula
     q = two_body_breakup_momentum(m, m_1, m_2)
     q_0 = two_body_breakup_momentum(m_0, m_1, m_2)
-    barrier_ratio = barrier_factor(L=s, q_0=q_0, q=q) / barrier_factor(L=s, q_0=q_0, q=q_0)
+    barrier_ratio = barrier_factor(L=s, q_0=q_0, q=q, R=1) / barrier_factor(L=s, q_0=q_0, q=q_0, R=1)
     width = width_0 * (m_0 / m) * (q / q_0)**(2 * s + 1) * barrier_ratio**2
     return width
 

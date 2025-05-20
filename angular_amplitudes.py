@@ -26,21 +26,10 @@ def angular_amplitude_zemach(m_mother: float, m_1: float, m_2: float, m_3: float
     Returns:
     float: Angular amplitude.
     """
-    
-    if s < 0:
-        raise ValueError("Spin s must be non-negative.")
-    
-    # Calculate the angular amplitude
-    elif s == 0:
-        return 1.0
-    
-    elif s == 1:
-        return m_13**2 - m_23**2 - (m_mother**2 - m_3**2) * (m_1**2 - m_2**2) / m_12**2
-    
-    elif s == 2:
-        return (m_23**2 - m_13**2 + (m_mother**2 - m_3**2) * (m_1**2 - m_2**2) / m_12**2)**2 \
-            - 1/3 * (m_12**2 - 2*m_mother**2 - 2*m_3**2 + ((m_mother**2 - m_3**2)**2) / m_12**2) \
-            * (m_12**2 - 2*m_1**2 - 2*m_2**2 + ((m_1**2 - m_2**2)**2) / m_12**2)
 
-    else:
-        raise NotImplementedError("Angular amplitude calculation for L > 2 is not implemented.")
+    r = jnp.where(s == 0, 1.0, 0.0)
+    r = jnp.where(s == 1, m_13**2 - m_23**2 - (m_mother**2 - m_3**2) * (m_1**2 - m_2**2) / m_12**2, r)
+    r = jnp.where(s == 2, (m_23**2 - m_13**2 + (m_mother**2 - m_3**2) * (m_1**2 - m_2**2) / m_12**2)**2 \
+                          - 1/3 * (m_12**2 - 2*m_mother**2 - 2*m_3**2 + ((m_mother**2 - m_3**2)**2) / m_12**2) \
+                          * (m_12**2 - 2*m_1**2 - 2*m_2**2 + ((m_1**2 - m_2**2)**2) / m_12**2), r)
+    return r

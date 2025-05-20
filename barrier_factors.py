@@ -22,19 +22,9 @@ def barrier_factor(L: int, q_0: float, q: float, R: float):
     Returns:
     float: Barrier factor.
     """
-
-    if L < 0:
-        raise ValueError("Angular momentum L must be non-negative.")
     
     # Calculate the barrier factor
-    elif L == 0:
-        return 1.0
-    
-    elif L == 1:
-        return jnp.sqrt( (1+R**2*q_0**2) / (1+R**2*q**2) )
-
-    elif L == 2:
-        return jnp.sqrt( (9+3*R**2*q_0**2+R**4*q_0**4) / (9+3*R**2*q**2+R**4*q**4) )
-
-    else:
-        raise NotImplementedError("Barrier factor calculation for L > 2 is not implemented.")
+    r = jnp.where(L == 0, 1.0, 0.0)
+    r = jnp.where(L == 1, jnp.sqrt( (1+R**2*q_0**2) / (1+R**2*q**2) ), r)
+    r = jnp.where(L == 2, jnp.sqrt( (9+3*R**2*q_0**2+R**4*q_0**4) / (9+3*R**2*q**2+R**4*q**4) ), r)
+    return r
